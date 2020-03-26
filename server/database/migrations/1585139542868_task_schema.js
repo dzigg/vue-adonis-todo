@@ -13,6 +13,7 @@ class TaskSchema extends Schema {
         .references("id")
         .inTable("project");
       table.string("description", 255);
+      table.boolean("completed");
       table.timestamps();
     });
   }

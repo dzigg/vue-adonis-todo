@@ -17,7 +17,7 @@
 const Route = use("Route");
 
 Route.group(() => {
-  Route.post("/auth/register", "UserC ontroller.register");
+  Route.post("/auth/register", "UserController.register");
   Route.post("/auth/login", "UserController.login");
 
   Route.get("projects", "ProjectController.index").middleware("auth");
@@ -27,4 +27,10 @@ Route.group(() => {
 
   Route.get("projects/:id/tasks", "TaskController.index").middleware("auth");
   Route.post("projects/:id/tasks", "TaskController.create").middleware("auth");
+  Route.delete("projects/:id/tasks/:id", "TaskController.destroy").middleware(
+    "auth"
+  );
+  Route.patch("projects/:id/tasks/:id", "TaskController.update").middleware(
+    "auth"
+  );
 }).prefix("api");
