@@ -57,14 +57,14 @@
           >
             <div class="ml-3 relative">
               <div class="flex">
-                <router-link
+                <button
                   v-if="isLoggedIn"
-                  to="/logout"
+                  @click="logout"
                   :class="{ 'text-white bg-gray-900': isActive }"
                   class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
                 >
                   Logout
-                </router-link>
+                </button>
 
                 <router-link
                   v-if="!isLoggedIn"
@@ -120,14 +120,14 @@
             Login
           </router-link>
 
-          <router-link
+          <button
             v-if="isLoggedIn"
-            to="/logout"
+            @click="logout"
             :class="{ 'text-white bg-gray-900': isActive }"
             class="mt-2 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
           >
             Logout
-          </router-link>
+          </button>
         </div>
       </div>
     </nav>
@@ -135,11 +135,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters('authentication', ['isLoggedIn'])
+  },
+  methods: {
+    ...mapActions('authentication', ['logout'])
   },
   data() {
     return {
