@@ -1,4 +1,6 @@
 // import router from '../router';
+import Vue from 'vue';
+import { getField, updateField } from 'vuex-map-fields';
 import HTTP from '../http';
 
 export default {
@@ -34,10 +36,20 @@ export default {
         .catch(() => {
           commit('setProjectError', 'Error has occured creating project');
         });
+    },
+    saveProject({ commit }, project) {
+      return HTTP()
+        .patch(`/projects/${project.id}`, project)
+        .then(() => {
+          commit('unsetEditMode', project);
+        });
     }
   },
-  getters: {},
+  getters: {
+    getField
+  },
   mutations: {
+    updateField,
     setProjects(state, projects) {
       state.projects = projects;
     },
@@ -52,6 +64,15 @@ export default {
     },
     setProjectError(state, error) {
       state.createProjectError = error;
+    },
+    setProjectTitle(state, { project, title }) {
+      project.title = title;
+    },
+    setEditMode(state, project) {
+      Vue.set(project, 'isEditMode', true);
+    },
+    unsetEditMode(state, project) {
+      Vue.set(project, 'isEditMode', false);
     }
   }
 };

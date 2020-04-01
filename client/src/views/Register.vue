@@ -1,12 +1,12 @@
 <template>
   <div>
     <div
-      class="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+      class="flex items-center justify-center px-4 py-12 bg-gray-50 sm:px-6 lg:px-8"
     >
-      <div class="max-w-md w-full">
+      <div class="w-full max-w-md">
         <div>
           <h1
-            class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900"
+            class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900"
           >
             Register your account
           </h1>
@@ -20,10 +20,9 @@
                 name="email"
                 type="email"
                 required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                 placeholder="Email address"
-                :value="registerEmail"
-                @input="setRegisterEmail($event.target.value)"
+                v-model="registerEmail"
               />
             </div>
 
@@ -33,23 +32,22 @@
                 name="password"
                 type="password"
                 required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+                class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                 placeholder="Password"
-                :value="registerPassword"
-                @input="setRegisterPassword($event.target.value)"
+                v-model="registerPassword"
               />
             </div>
           </div>
           <div
             :class="{ hidden: !registerError }"
-            class="mt-4 py-2 px-3 text-red-500 font-semibold bg-red-200 text-sm rounded"
+            class="px-3 py-2 mt-4 text-sm font-semibold text-red-500 bg-red-200 rounded"
           >
             Error: {{ this.$store.state.authentication.registerError }}
           </div>
           <div class="mt-6">
             <button
               @click="register"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-700 transition duration-150 ease-in-out"
+              class="relative flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-teal-600 border border-transparent rounded-md group hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-700"
             >
               Register account
             </button>
@@ -61,21 +59,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
-
+import { mapState, mapActions } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 export default {
   computed: {
-    ...mapState('authentication', [
-      'registerEmail',
-      'registerPassword',
-      'registerError'
-    ])
+    ...mapState('authentication', ['registerError']),
+    ...mapFields('authentication', ['registerEmail', 'registerPassword'])
   },
   methods: {
-    ...mapMutations('authentication', [
-      'setRegisterEmail',
-      'setRegisterPassword'
-    ]),
     ...mapActions('authentication', ['register'])
   }
 };

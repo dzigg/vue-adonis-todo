@@ -1,6 +1,6 @@
 import router from '../router';
-
 import HTTP from '../http';
+import { getField, updateField } from 'vuex-map-fields';
 
 export default {
   namespaced: true,
@@ -8,8 +8,8 @@ export default {
     registerEmail: null,
     registerPassword: null,
     registerError: null,
-    loginEmail: null,
-    loginPassword: null,
+    loginEmail: 'tester@gmail.com',
+    loginPassword: 'test',
     loginError: null,
     token: null
   },
@@ -55,29 +55,31 @@ export default {
   getters: {
     isLoggedIn(state) {
       return !!state.token;
-    }
+    },
+    getField
   },
   mutations: {
+    updateField,
     setToken(state, token) {
       state.token = token;
     },
     setRegisterError(state, error) {
       state.registerError = error;
     },
-    setRegisterEmail(state, email) {
-      state.registerEmail = email;
-    },
-    setRegisterPassword(state, password) {
-      state.registerPassword = password;
-    },
+    // setRegisterEmail(state, email) {
+    //   state.registerEmail = email;
+    // },
+    // setRegisterPassword(state, password) {
+    //   state.registerPassword = password;
+    // },
     setLoginError(state, error) {
       state.loginError = error;
-    },
-    setLoginEmail(state, email) {
-      state.loginEmail = email;
-    },
-    setLoginPassword(state, password) {
-      state.loginPassword = password;
     }
+    // setLoginEmail(state, email) {
+    //   state.loginEmail = email;
+    // },
+    // setLoginPassword(state, password) {
+    //   state.loginPassword = password;
+    // }
   }
 };

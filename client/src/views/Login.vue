@@ -22,8 +22,7 @@
                 required
                 class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                 placeholder="Email address"
-                :value="loginEmail"
-                @input="setLoginEmail($event.target.value)"
+                v-model="loginEmail"
               />
             </div>
 
@@ -35,8 +34,7 @@
                 required
                 class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
                 placeholder="Password"
-                :value="loginPassword"
-                @input="setLoginPassword($event.target.value)"
+                v-model="loginPassword"
               />
             </div>
           </div>
@@ -61,14 +59,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
-
+import { mapState, mapActions } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
 export default {
   computed: {
-    ...mapState('authentication', ['loginEmail', 'loginPassword', 'loginError'])
+    ...mapState('authentication', ['loginError']),
+    ...mapFields('authentication', ['loginEmail', 'loginPassword'])
   },
   methods: {
-    ...mapMutations('authentication', ['setLoginEmail', 'setLoginPassword']),
     ...mapActions('authentication', ['login'])
   }
 };
