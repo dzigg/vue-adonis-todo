@@ -87,7 +87,7 @@
               Done
             </button>
 
-            <button class="flex items-center">
+            <button class="flex items-center" @click="deleteProject(project)">
               <svg
                 class="w-5 ml-3 text-gray-500 transition-all transition duration-100 ease-in hover:text-red-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,12 @@ export default {
   },
   methods: {
     ...mapMutations('projects', ['setEditMode', 'setProjectTitle']),
-    ...mapActions('projects', ['createProject', 'fetchProjects', 'saveProject'])
+    ...mapActions('projects', [
+      'createProject',
+      'fetchProjects',
+      'saveProject',
+      'deleteProject'
+    ])
   },
   mounted() {
     this.fetchProjects();
